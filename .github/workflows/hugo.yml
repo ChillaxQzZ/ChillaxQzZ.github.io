@@ -2,7 +2,8 @@ name: Deploy Hugo site to Pages
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -11,18 +12,12 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: "pages"
   cancel-in-progress: false
-
-defaults:
-  run:
-    shell: bash
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      HUGO_VERSION: "0.157.0"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,10 +25,18 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          hugo-version: ${{ env.HUGO_VERSION }}
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
           extended: true
 
       - name: Build
@@ -51,8 +54,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-     - name: Checkout
-       uses: actions/checkout@v4
-       with:
-         submodules: recursive  
-         fetch-depth: 0
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
