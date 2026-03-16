@@ -16,7 +16,7 @@ summaryLength = 0
   home = ["HTML", "RSS", "JSON"]
 
 [author]
-  name = "Tianxiang Xiao"
+  name = "Bo Feng"
 
 [taxonomies]
   tag = "tags"
