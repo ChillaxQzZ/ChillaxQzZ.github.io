@@ -1,0 +1,15 @@
+languageName = "English"
+weight = 1
+title = "Bo Feng"
+
+[author]
+  name = "Bo Feng"
+
+[params.author]
+  name = "Bo Feng"
+  headline = "School of Mathematics, Physics and Medicine, Zhejiang Normal University"
+  image = "images/user.jpg"
+  links = [
+    { github = "https://github.com/ChillaxQzZ" },
+    { email = "qileren2370644764@163.com" }
+  ]
